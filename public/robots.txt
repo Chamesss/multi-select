@@ -1,11 +1,6 @@
 User-agent: *
 Allow: /
 
-# Allow all static assets
-Allow: /public/
-Allow: /favicon.ico
-
-# Block Next.js build files and sensitive files
 Disallow: /_next/
 Disallow: /.well-known/
 Disallow: /api/
@@ -17,8 +12,6 @@ Disallow: /next.config.*
 Disallow: /tailwind.config.*
 Disallow: /components.json
 
-# Crawl delay
 Crawl-delay: 1
 
-# Sitemap location
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://multi-select-component-demo.vercel.app/sitemap.xml
