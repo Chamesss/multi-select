@@ -95,7 +95,7 @@ export default function MultiSelectShowcase() {
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://github.com/Chamesss"
+                href="https://github.com/Chamesss/multi-select"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -205,6 +205,7 @@ const [selected, setSelected] = useState([]);
   selected={selected}
   onChange={setSelected}
   placeholder="Select frameworks..."
+  isLoading={false}
 />`}</code>
               </pre>
             </CardContent>
