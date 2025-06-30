@@ -3,7 +3,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
+export const metadataBase = new URL(
+  "https://multi-select-component-demo.vercel.app"
+);
+
 export const metadata: Metadata = {
+  metadataBase,
   title: {
     default: "MultiSelect Component Demo | shadcn/ui + Next.js 15",
     template: "%s | MultiSelect Demo",
@@ -11,26 +16,9 @@ export const metadata: Metadata = {
   description:
     "Interactive demonstration of a customizable MultiSelect component built with shadcn/ui, Next.js 15, and React 19. Features search functionality, theme switching, loading states, and accessibility support.",
   keywords: [
-    "MultiSelect",
-    "shadcn/ui",
-    "Next.js 15",
-    "React 19",
-    "TypeScript",
-    "Tailwind CSS",
-    "Component Library",
-    "UI Components",
-    "Radix UI",
-    "Dark Theme",
-    "Accessibility",
-    "Search Component",
-    "Interactive Demo",
+    // your keywords
   ],
-  authors: [
-    {
-      name: "Chamesss",
-      url: "https://github.com/Chamesss",
-    },
-  ],
+  authors: [{ name: "Chamesss", url: "https://github.com/Chamesss" }],
   creator: "Chamesss",
   publisher: "MultiSelect Demo",
   category: "Technology",
@@ -38,16 +26,6 @@ export const metadata: Metadata = {
   generator: "Next.js 15",
   applicationName: "MultiSelect Component Demo",
   referrer: "origin-when-cross-origin",
-  colorScheme: "dark light",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-  ],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
   robots: {
     index: true,
     follow: true,
@@ -94,16 +72,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo.png", sizes: "16x16", type: "image/png" },
+      { url: "/logo.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
     other: [
       {
         rel: "mask-icon",
-        url: "/safari-pinned-tab.svg",
+        url: "/logo.svg",
         color: "#000000",
       },
     ],
@@ -117,6 +93,21 @@ export const metadata: Metadata = {
     "msapplication-config": "/browserconfig.xml",
   },
 };
+
+export function generateViewport() {
+  return {
+    viewport: {
+      width: "device-width",
+      initialScale: 1,
+      maximumScale: 5,
+    },
+    themeColor: [
+      { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+      { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    ],
+    colorScheme: "dark light",
+  };
+}
 
 export default function RootLayout({
   children,
