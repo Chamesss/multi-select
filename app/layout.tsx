@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadataBase = new URL(
   "https://multi-select-component-demo.vercel.app"
@@ -131,6 +132,7 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
