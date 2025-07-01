@@ -78,7 +78,7 @@ export default function MultiSelectShowcase() {
 
   const simulateLoading = () => {
     setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 2000);
+    setTimeout(() => setIsLoading(false), 5000);
   };
 
   return (
@@ -136,7 +136,7 @@ export default function MultiSelectShowcase() {
                   <Label htmlFor="languages">Languages</Label>
                   <MultiSelect
                     options={languages}
-                    selected={selectedLanguages}
+                    value={selectedLanguages}
                     onChange={setSelectedLanguages}
                     placeholder="Select languages..."
                   />
@@ -163,9 +163,13 @@ export default function MultiSelectShowcase() {
                   <Label htmlFor="loading">Loading Example</Label>
                   <MultiSelect
                     options={isLoading ? undefined : frameworks}
-                    selected={[]}
+                    value={[]}
                     onChange={() => {}}
-                    placeholder="Loading options..."
+                    placeholder={
+                      isLoading
+                        ? "Loading options..."
+                        : "Hit the button to trigger 5 seconds loading"
+                    }
                     isLoading={isLoading}
                   />
                 </div>
@@ -199,13 +203,14 @@ export default function MultiSelectShowcase() {
 ];
 
 const [selected, setSelected] = useState([]);
+const [isLoading, setIsLoading] = useState(false);
 
 <MultiSelect
   options={frameworks}
-  selected={selected}
+  value={selected}
   onChange={setSelected}
   placeholder="Select frameworks..."
-  isLoading={false}
+  isLoading={isLoading}
 />`}</code>
               </pre>
             </CardContent>

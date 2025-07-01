@@ -32,7 +32,7 @@ interface MultiSelectProps {
         value: string;
       }[]
     | undefined;
-  selected: string[];
+  value: string[];
   onChange: (selected: string[]) => void;
   placeholder?: string;
   className?: string;
@@ -41,7 +41,7 @@ interface MultiSelectProps {
 
 export default function MultiSelect({
   options,
-  selected,
+  value,
   onChange,
   placeholder = "Select items...",
   className,
@@ -50,14 +50,14 @@ export default function MultiSelect({
   const [open, setOpen] = React.useState(false);
 
   const handleUnselect = (item: string) => {
-    onChange(selected.filter((i) => i !== item));
+    onChange(value.filter((i) => i !== item));
   };
 
   const handleSelect = (item: string) => {
-    if (selected.includes(item)) {
+    if (value.includes(item)) {
       handleUnselect(item);
     } else {
-      onChange([...selected, item]);
+      onChange([...value, item]);
     }
   };
 
@@ -89,12 +89,12 @@ export default function MultiSelect({
                 );
               }}
             >
-              {selected.length === 0 ? (
-                <span className="text-muted-foreground h-fit my-auto">
+              {value.length === 0 ? (
+                <span className="text-muted-foreground h-fit my-auto truncate">
                   {placeholder}
                 </span>
               ) : (
-                selected.map((item) => {
+                value.map((item) => {
                   const option = options?.find((opt) => opt.value === item);
                   return (
                     <Badge
@@ -160,7 +160,7 @@ export default function MultiSelect({
                     <Check
                       className={cn(
                         "mr-2 h-4 w-4",
-                        selected.includes(option.value)
+                        value.includes(option.value)
                           ? "opacity-100"
                           : "opacity-0"
                       )}
