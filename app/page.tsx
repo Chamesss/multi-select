@@ -122,7 +122,7 @@ export default function MultiSelectShowcase() {
           </div>
 
           {/* Examples Grid */}
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
             {/* Pre-selected Example */}
             <Card>
               <CardHeader>
