@@ -17,10 +17,29 @@ export const metadata: Metadata = {
   description:
     "Interactive demonstration of a customizable MultiSelect component built with shadcn/ui, Next.js 15, and React 19. Features search functionality, theme switching, loading states, and accessibility support.",
   keywords: [
-    // your keywords
+    "MultiSelect",
+    "shadcn/ui",
+    "Next.js 15",
+    "React 19",
+    "React Components",
+    "React UI",
+    "shadcn/ui Components",
+    "shadcn/ui MultiSelect",
+    "shadcn/ui MultiSelect Component",
+    "shadcn/ui MultiSelect Demo",
+    "shadcn/ui MultiSelect Example",
+    "UI Component Library",
+    "Accessibility",
+    "Theming",
+    "Loading States",
+    "Interactive Components",
+    "Web Development",
+    "Frontend Development",
+    "JavaScript",
+    "TypeScript",
   ],
-  authors: [{ name: "Chamesss", url: "https://github.com/Chamesss" }],
-  creator: "Chamesss",
+  authors: [{ name: "Chamsedin Azouz", url: "https://github.com/Chamesss" }],
+  creator: "Chamsedin Azouz",
   publisher: "MultiSelect Demo",
   category: "Technology",
   classification: "UI Component Library",
@@ -46,30 +65,12 @@ export const metadata: Metadata = {
     description:
       "Experience a modern MultiSelect component built with shadcn/ui, Next.js 15, and React 19. Features search, theming, loading states, and full accessibility support.",
     siteName: "MultiSelect Component Demo",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "MultiSelect Component Demo - Interactive UI Component",
-        type: "image/png",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "MultiSelect Component Demo | shadcn/ui + Next.js 15",
     description:
       "Interactive MultiSelect component with search, theming, and accessibility. Built with shadcn/ui and Next.js 15.",
-    creator: "@YourTwitterHandle",
-    images: [
-      {
-        url: "/twitter-image.png",
-        alt: "MultiSelect Component Demo Preview",
-        width: 1200,
-        height: 630,
-      },
-    ],
   },
   icons: {
     icon: [
@@ -80,17 +81,13 @@ export const metadata: Metadata = {
     other: [
       {
         rel: "mask-icon",
-        url: "/logo.svg",
+        url: "/logo.png",
         color: "#000000",
       },
     ],
   },
   alternates: {
     canonical: "https://multi-select-component-demo.vercel.app/",
-  },
-  other: {
-    "msapplication-TileColor": "#000000",
-    "msapplication-config": "/browserconfig.xml",
   },
 };
 
