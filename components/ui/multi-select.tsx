@@ -106,7 +106,7 @@ export default function MultiSelect({
               }}
               tabIndex={0}
               className={cn(
-                "py-1 px-1 mx-1.5 my-auto h-full outline-none",
+                "p-1 mx-1.5 my-auto h-full outline-none",
                 "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 "hover:bg-accent/50 rounded-sm cursor-pointer"
               )}
