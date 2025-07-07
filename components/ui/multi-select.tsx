@@ -55,62 +55,82 @@ export default function MultiSelect({
   return (
     <div className={cn("w-full", className)}>
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <button
-            type="button"
-            className={cn(
-              "flex h-12 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm",
-              "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-              "disabled:cursor-not-allowed disabled:opacity-50",
-              "hover:bg-accent hover:text-accent-foreground"
-            )}
-            disabled={disabled}
-            aria-expanded={open}
-          >
-            <div className="flex flex-1 items-center gap-1 overflow-hidden">
+        <PopoverTrigger
+          className={cn(
+            "flex h-12 w-full transition-all items-center justify-between rounded-md border border-input bg-background text-sm",
+            "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+            "disabled:cursor-not-allowed disabled:opacity-50",
+            "hover:bg-accent hover:text-accent-foreground"
+          )}
+          disabled={disabled}
+          aria-expanded={open}
+        >
+          <div className="flex justify-between flex-1 overflow-hidden">
+            <div
+              className="flex gap-1 flex-1 py-2 px-3 overflow-x-auto"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "hsl(var(--border)) transparent",
+              }}
+            >
               {value.length === 0 ? (
                 <span className="text-muted-foreground">{placeholder}</span>
               ) : (
-                <div className="flex flex-wrap gap-1">
-                  {value.map((item) => {
-                    const option = options?.find((opt) => opt.value === item);
-                    return (
-                      <Badge key={item} variant="secondary" className="text-xs">
-                        {option?.label}
-                        <button
-                          type="button"
-                          className="ml-1 hover:bg-destructive hover:text-destructive-foreground rounded-full p-0.5"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleUnselect(item);
-                          }}
-                        >
-                          <X className="h-3 w-3" />
-                        </button>
-                      </Badge>
-                    );
-                  })}
-                </div>
+                value.map((item) => {
+                  const option = options?.find((opt) => opt.value === item);
+                  return (
+                    <Badge key={item} variant="default" className="text-xs">
+                      {option?.label}
+                      <span
+                        role="button"
+                        tabIndex={0}
+                        className="ml-1 hover:bg-destructive transition-all hover:text-destructive-foreground rounded-full p-0.5"
+                        onKeyDown={(e) =>
+                          e.key === "Enter" && handleUnselect(item)
+                        }
+                        onClick={() => handleUnselect(item)}
+                      >
+                        <X className="h-3 w-3" />
+                      </span>
+                    </Badge>
+                  );
+                })
               )}
             </div>
-            <button type="button">
+            <hr className="border-l border-border bg-red-300 h-6 mx-0.5 my-auto" />
+            <span
+              role="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpen((prev) => !prev);
+              }}
+              tabIndex={0}
+              className={cn(
+                "py-1 px-1 mx-1.5 my-auto h-full outline-none",
+                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "hover:bg-accent/50 rounded-sm cursor-pointer"
+              )}
+            >
               <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
-            </button>
-          </button>
+            </span>
+          </div>
         </PopoverTrigger>
         <PopoverContent className="w-full p-0" align="start">
           <Command>
             <CommandInput autoFocus={false} placeholder="Search items..." />
             <CommandList>
-              <CommandEmpty>
+              <CommandEmpty className="p-0">
                 {isLoading ? (
                   <div className="p-2">
                     {Array.from({ length: 6 }).map((_, index) => (
-                      <Skeleton key={index} className="h-8 w-full mb-1" />
+                      <Skeleton
+                        key={index}
+                        className="h-4 w-full mb-1 last:mb-0"
+                      />
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center text-sm py-6 text-muted-foreground">
+                  <div className="text-center text-sm py-4 text-muted-foreground">
                     No items found.
                   </div>
                 )}
