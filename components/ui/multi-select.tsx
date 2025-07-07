@@ -74,7 +74,9 @@ export default function MultiSelect({
               }}
             >
               {value.length === 0 ? (
-                <span className="text-muted-foreground">{placeholder}</span>
+                <span className="text-muted-foreground truncate">
+                  {placeholder}
+                </span>
               ) : (
                 value.map((item) => {
                   const option = options?.find((opt) => opt.value === item);
