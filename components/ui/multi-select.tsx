@@ -1,13 +1,9 @@
 "use client";
 
 import * as React from "react";
-
 import { Check, ChevronsUpDown, X } from "lucide-react";
-
 import { cn } from "@/lib/utils";
-
 import { Badge } from "@/components/ui/badge";
-
 import {
   Command,
   CommandEmpty,
@@ -16,27 +12,21 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface MultiSelectProps {
-  options:
-    | {
-        label: string;
-        value: string;
-      }[]
-    | undefined;
+  options?: { label: string; value: string }[];
   value: string[];
   onChange: (selected: string[]) => void;
   placeholder?: string;
   className?: string;
   isLoading?: boolean;
+  disabled?: boolean;
 }
 
 export default function MultiSelect({
@@ -46,6 +36,7 @@ export default function MultiSelect({
   placeholder = "Select items...",
   className,
   isLoading = false,
+  disabled = false,
 }: MultiSelectProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -64,88 +55,62 @@ export default function MultiSelect({
   return (
     <div className={cn("w-full", className)}>
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild className="w-full">
-          <div className="flex h-12 flex-row cursor-pointer rounded-md border border-input justify-between items-stretch">
-            <div
-              className="flex flex-nowrap hover:bg-neutral-50 dark:bg-neutral-800 dark:hover:bg-neutral-700 bg-neutral-100 overflow-x-auto overflow-y-hidden px-2.5 py-1.5 gap-1 flex-1"
-              style={{
-                scrollbarWidth: "thin",
-                scrollbarColor: "hsl(var(--border)) transparent",
-              }}
-              onScroll={(e) => {
-                const target = e.target as HTMLElement;
-                target.style.setProperty("--webkit-scrollbar-width", "4px");
-                target.style.setProperty(
-                  "--webkit-scrollbar-track-background",
-                  "transparent"
-                );
-                target.style.setProperty(
-                  "--webkit-scrollbar-thumb-background",
-                  "hsl(var(--border))"
-                );
-                target.style.setProperty(
-                  "--webkit-scrollbar-thumb-border-radius",
-                  "2px"
-                );
-              }}
-            >
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            className={cn(
+              "flex h-12 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm",
+              "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+              "disabled:cursor-not-allowed disabled:opacity-50",
+              "hover:bg-accent hover:text-accent-foreground"
+            )}
+            disabled={disabled}
+            aria-expanded={open}
+          >
+            <div className="flex flex-1 items-center gap-1 overflow-hidden">
               {value.length === 0 ? (
-                <span className="text-muted-foreground h-fit my-auto truncate">
-                  {placeholder}
-                </span>
+                <span className="text-muted-foreground">{placeholder}</span>
               ) : (
-                value.map((item) => {
-                  const option = options?.find((opt) => opt.value === item);
-                  return (
-                    <Badge
-                      key={item}
-                      variant="default"
-                      className="text-xs h-fit py-0 my-auto"
-                    >
-                      {option?.label}
-                      <button
-                        className="ml-1 py-1.5 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer text-muted-foreground dark:!text-neutral-800 dark:hover:!text-red-600 hover:!text-red-600"
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") handleUnselect(item);
-                        }}
-                        onMouseDown={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleUnselect(item);
-                        }}
-                      >
-                        <X className="h-3 w-3" />
-                      </button>
-                    </Badge>
-                  );
-                })
+                <div className="flex flex-wrap gap-1">
+                  {value.map((item) => {
+                    const option = options?.find((opt) => opt.value === item);
+                    return (
+                      <Badge key={item} variant="secondary" className="text-xs">
+                        {option?.label}
+                        <button
+                          type="button"
+                          className="ml-1 hover:bg-destructive hover:text-destructive-foreground rounded-full p-0.5"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleUnselect(item);
+                          }}
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </Badge>
+                    );
+                  })}
+                </div>
               )}
             </div>
-            <div className="flex items-center justify-center dark:hover:bg-white/5 hover:bg-black/5 p-1">
+            <button type="button">
               <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
-            </div>
-          </div>
+            </button>
+          </button>
         </PopoverTrigger>
-        <PopoverContent
-          className="w-full h-fit p-0 z-[9999] rounded-sm"
-          align="start"
-        >
+        <PopoverContent className="w-full p-0" align="start">
           <Command>
-            <CommandInput placeholder="Search items..." />
+            <CommandInput autoFocus={false} placeholder="Search items..." />
             <CommandList>
-              <CommandEmpty className="p-0">
+              <CommandEmpty>
                 {isLoading ? (
-                  Array.from({ length: 6 }).map((_, index) => (
-                    <Skeleton
-                      key={index}
-                      className="h-[15px] mx-auto w-[93%] rounded-sm my-2"
-                    />
-                  ))
+                  <div className="p-2">
+                    {Array.from({ length: 6 }).map((_, index) => (
+                      <Skeleton key={index} className="h-8 w-full mb-1" />
+                    ))}
+                  </div>
                 ) : (
-                  <div className="text-center text-xs py-2 mt-1.5 w-full mx-auto">
+                  <div className="text-center text-sm py-6 text-muted-foreground">
                     No items found.
                   </div>
                 )}
